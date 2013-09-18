@@ -24,6 +24,10 @@ By default passenger webserver is used. In order to change it we will use new fe
 To take effect you need to either restart your application or deploy your code again. 
 
 	rhc app restart YOUR_APP_NAME
+	
+You can check which server is running by using this command
+
+	rhc ssh tmp '~/advanced-ruby/bin/control server'
 
 
 If you are using Gemfile you need to add gem with your selected server. In this case it would be
