@@ -1,0 +1,35 @@
+#!/bin/bash
+source "${OPENSHIFT_RUBY_DIR}/lib/ruby_context"
+
+
+function is_server_installed {
+	case $1 in
+		"passenger") 
+			;;
+		"puma"|"thin"|"unicorn"|"rainbows")
+			gem_exists "$1"
+			;;
+		*)
+			echo "WARN: Unknown \"$1\" server" >&2
+			exit 1
+			;;
+	esac
+}
+
+function gem_exists() {
+	[ "`gem list -i $1`" == "true" ]
+}
+
+function run_command() {
+	if is_bundler_used
+	then
+		ruby_context 'bundle exec "'"$1"'"'
+	else
+		ruby_context "$1"
+	fi
+
+}
+
+function is_bundler_used() {
+	[ -f ${OPENSHIFT_REPO_DIR}/Gemfile ]	
+}

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+HTTPD_CFG_FILE=$OPENSHIFT_RUBY_DIR/etc/conf/httpd_nolog.conf

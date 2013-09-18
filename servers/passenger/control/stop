@@ -1,0 +1,14 @@
+#!/bin/bash -e
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+source "${OPENSHIFT_RUBY_DIR}/lib/util"
+source "${OPENSHIFT_RUBY_DIR}/lib/ruby_context"
+source "${OPENSHIFT_RUBY_DIR}/servers/passenger/env_variables"
+
+
+ensure_valid_httpd_process "$OPENSHIFT_SERVER_PID" "$HTTPD_CFG_FILE"
+if [ -f "$OPENSHIFT_SERVER_PID" ]; then
+	httpd_pid=`cat "$OPENSHIFT_SERVER_PID" 2> /dev/null`
+fi
+ruby_context "/usr/sbin/httpd -C 'Include $OPENSHIFT_RUBY_DIR/etc/conf.d/*.conf' -f $HTTPD_CFG_FILE -k stop"
+wait_for_stop $httpd_pid

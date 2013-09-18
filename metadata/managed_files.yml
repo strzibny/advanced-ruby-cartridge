@@ -1,0 +1,25 @@
+---
+locked_files:
+- bin/
+- bin/*
+- metadata/
+- metadata/*
+- hooks/
+- hooks/*
+- etc/
+- etc/conf.d/
+- etc/conf.d/*
+#- env/
+- env/OPENSHIFT_RUBY_DIR
+- env/OPENSHIFT_RUBY_LOG_DIR
+- servers/
+- servers/puma/
+- servers/puma/*
+- servers/puma/control/*
+- servers/passenger/
+- servers/passenger/*
+- servers/passenger/control/*
+processed_templates:
+- 'etc/conf.d/openshift.conf.erb'
+- 'metadata/jenkins_shell_command.erb'
+- 'servers/*/*.erb'
