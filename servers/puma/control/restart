@@ -2,7 +2,4 @@
 
 source "${OPENSHIFT_RUBY_DIR}/lib/ruby_context"
 
-if [ -d ${OPENSHIFT_RUBY_DIR}run/server.state ]
-then
-    ruby_context 'pumactl --state "${OPENSHIFT_RUBY_DIR}run/server.state" restart'
-fi
+run_command 'pumactl --state "${OPENSHIFT_RUBY_DIR}run/server.state" restart'
