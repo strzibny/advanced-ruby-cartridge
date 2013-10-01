@@ -2,4 +2,4 @@
 
 source "${OPENSHIFT_RUBY_DIR}/lib/servers" 
 
-run_command 'unicorn -c ${OPENSHIFT_RUBY_DIR}/servers/unicorn/config.rb -D'
+run_command 'unicorn -c ${OPENSHIFT_RUBY_DIR}/servers/unicorn/config.rb -D -E "production"'
