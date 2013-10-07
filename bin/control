@@ -5,34 +5,34 @@ source "${OPENSHIFT_RUBY_DIR}/lib/util"
 source "${OPENSHIFT_RUBY_DIR}/lib/ruby_context"
 source "${OPENSHIFT_RUBY_DIR}/lib/servers"
 
-if [ -z "$OPENSHIFT_SERVER" ]
+if [ -z "$OPENSHIFT_RUBY_SERVER" ]
 then
-  OPENSHIFT_SERVER=passenger #by default
+  OPENSHIFT_RUBY_SERVER=passenger #by default
 fi
 
 
 function start() {
-    echo "Starting Ruby cartridge using ${OPENSHIFT_SERVER} webserver."
+    echo "Starting Ruby cartridge using ${OPENSHIFT_RUBY_SERVER} webserver."
   
-    if ! is_server_installed $OPENSHIFT_SERVER && ! is_bundler_used
+    if ! is_server_installed $OPENSHIFT_RUBY_SERVER && ! is_bundler_used
     then
-      echo "Installing ${OPENSHIFT_SERVER} ..."
-      ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_SERVER}/install
-      echo "${OPENSHIFT_SERVER} was successfully installed."
+      echo "Installing ${OPENSHIFT_RUBY_SERVER} ..."
+      ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_SERVER}/install
+      echo "${OPENSHIFT_RUBY_SERVER} was successfully installed."
     fi
 
     pushd $OPENSHIFT_REPO_DIR 1>/dev/null
-    ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_SERVER}/control/start
+    ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_SERVER}/control/start
     popd 1>/dev/null    
 
-    echo -n "${OPENSHIFT_SERVER}" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_SERVER_LATEST_STARTED
+    echo -n "${OPENSHIFT_RUBY_SERVER}" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_SERVER_LATEST_STARTED
 }
 
 function stop() {
-    echo "Stopping ${OPENSHIFT_SERVER_LATEST_STARTED} server"
+    echo "Stopping ${OPENSHIFT_RUBY_SERVER_LATEST_STARTED} server"
 
     pushd $OPENSHIFT_REPO_DIR 1>/dev/null
-    ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_SERVER_LATEST_STARTED}/control/stop 
+    ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_SERVER_LATEST_STARTED}/control/stop
     popd 1>/dev/null   
 }
 
@@ -40,19 +40,19 @@ function restart() {
     echo "${1}ing Ruby cart"
 
     #if server is changed, we will stop the running server and start newly defined server, otherwise just restart current server
-    if [ $OPENSHIFT_SERVER_LATEST_STARTED != $OPENSHIFT_SERVER ]
+    if [ $OPENSHIFT_RUBY_SERVER_LATEST_STARTED != $OPENSHIFT_RUBY_SERVER ]
     then
       stop
       start
     else
       pushd $OPENSHIFT_REPO_DIR 1>/dev/null
-      ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_SERVER}/control/restart 
+      ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_SERVER}/control/restart
       popd 1>/dev/null
     fi 
 }
 
 function server() {
-  client_result "Application is using ${OPENSHIFT_SERVER_LATEST_STARTED} server."
+  client_result "Application is using ${OPENSHIFT_RUBY_SERVER_LATEST_STARTED} server."
 }
 
 function status() {
