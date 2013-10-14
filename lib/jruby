@@ -8,12 +8,13 @@ function jruby-install() {
     OPENSHIFT_JRUBY_VERSION=`curl http://jruby.org/download | ruby -e "s=ARGF.read;x=/Current Release: JRuby (\d\.\d\.\d)/m.match(s);puts x[1]"`
   fi
 
+  echo "$OPENSHIFT_JRUBY_VERSION" > ${OPENSHIFT_JRUBY_DIR}env/OPENSHIFT_JRUBY_VERSION
+
   pushd ${OPENSHIFT_RUBY_DIR}/tmp 1>/dev/null
 
   curl -o jruby.tar.gz http://jruby.org.s3.amazonaws.com/downloads/$OPENSHIFT_JRUBY_VERSION/jruby-bin-$OPENSHIFT_JRUBY_VERSION.tar.gz
 
   tar xf jruby.tar.gz
-  mv jruby.tar.gz ${OPENSHIFT_HOMEDIR}/.sandbox/jruby.tar.gz
   mkdir ${OPENSHIFT_HOMEDIR}/.jruby
   mv jruby-${OPENSHIFT_JRUBY_VERSION} ${OPENSHIFT_HOMEDIR}/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}
 
