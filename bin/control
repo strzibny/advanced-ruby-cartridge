@@ -8,6 +8,13 @@ source "${OPENSHIFT_RUBY_DIR}/lib/servers"
 if [ -z "$OPENSHIFT_RUBY_SERVER" ]
 then
   OPENSHIFT_RUBY_SERVER=passenger #by default
+  echo "passenger" > $OPENSHIFT_HOMEDIR/.env/user_vars/OPENSHIFT_RUBY_SERVER
+fi
+
+if [-z "$OPENSHIFT_RUBY_IMPLEMENTATION" ]
+then
+  $OPENSHIFT_RUBY_IMPLEMENTATION=default
+  echo "default" > $OPENSHIFT_HOMEDIR/.env/user_vars/OPENSHIFT_RUBY_IMPLEMENTATION
 fi
 
 
