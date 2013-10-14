@@ -18,17 +18,6 @@ for dir in etc; do
     cp -Lr $OPENSHIFT_RUBY_DIR/versions/$version/$dir/* $OPENSHIFT_RUBY_DIR/$dir 
 done
 
-if [ $version == '1.9' ]; then
-    # Cleanup from version 0.0.1
-    [ -f $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_PATH_ELEMENT ] && rm -f $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_PATH_ELEMENT
-    [ -f $OPENSHIFT_RUBY_DIR/env/LD_LIBRARY_PATH ] && rm -f $OPENSHIFT_RUBY_DIR/env/LD_LIBRARY_PATH
-    [ -f $OPENSHIFT_RUBY_DIR/env/MANPATH ] && rm -f $OPENSHIFT_RUBY_DIR/env/MANPATH
-
-    dirname $(scl enable ruby193 "which ruby")    > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_PATH_ELEMENT
-    scl enable ruby193 "printenv LD_LIBRARY_PATH" > $OPENSHIFT_RUBY_DIR/env/LD_LIBRARY_PATH
-    scl enable ruby193 "printenv MANPATH"         > $OPENSHIFT_RUBY_DIR/env/MANPATH
-fi
-
 echo "${OPENSHIFT_RUBY_DIR}run/server.pid" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_SERVER_PID
 echo "${OPENSHIFT_RUBY_DIR}logs/server.log" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_SERVER_STDOUT_LOG
 echo "${OPENSHIFT_RUBY_DIR}logs/server.log" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_SERVER_STDERR_LOG
