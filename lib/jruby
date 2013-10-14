@@ -18,6 +18,7 @@ function jruby-install() {
   mkdir ${OPENSHIFT_HOMEDIR}/.jruby
   mv jruby-${OPENSHIFT_JRUBY_VERSION} ${OPENSHIFT_HOMEDIR}/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}
 
+  export PATH="$PATH:${OPENSHIFT_HOMEDIR}/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}/bin"
   echo -n "${OPENSHIFT_HOMEDIR}/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}/bin:" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_PATH_ELEMENT
 
   jruby -S gem install bundler
