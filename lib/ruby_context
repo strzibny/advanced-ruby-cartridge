@@ -3,8 +3,14 @@
 
 # RHEL OpenShift Online supported versions
 function ruby_context {
-  case $OPENSHIFT_RUBY_VERSION in
-    1.8) eval $1 ;;
-    1.9) /usr/bin/scl enable ruby193 "$1" ;;
-  esac
+  if [ $OPENSHIFT_RUBY_IMPLEMENTATION = "jruby" ]
+  then
+    jruby -S "$1"
+  else
+    case $OPENSHIFT_RUBY_VERSION in
+      1.8) eval $1 ;;
+      1.9) /usr/bin/scl enable ruby193 "$1" ;;
+    esac
+  fi
+
 }

@@ -19,6 +19,8 @@ fi
 
 
 function start() {
+    update-configuration $OPENSHIFT_RUBY_VERSION
+
     echo "Starting Ruby cartridge using ${OPENSHIFT_RUBY_SERVER} webserver."
   
     if ! is_server_installed $OPENSHIFT_RUBY_SERVER && ! is_bundler_used
