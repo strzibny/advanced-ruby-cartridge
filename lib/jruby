@@ -16,9 +16,11 @@ function jruby-install() {
 
   tar xf jruby.tar.gz
   mkdir -p ${OPENSHIFT_HOMEDIR}/.jruby
-  mkdir -p ${OPENSHIFT_HOMEDIR}/.gem-jruby
+  mkdir -p ${OPENSHIFT_HOMEDIR}/.gem-jruby/bin
 
   mv jruby-${OPENSHIFT_JRUBY_VERSION} ${OPENSHIFT_HOMEDIR}/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}
+
+  export GEM_HOME="${OPENSHIFT_HOME_DIR}/.gem-jruby"
 
   ${OPENSHIFT_HOMEDIR}/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}/bin/jruby -S gem install bundler
   echo "JRuby installed."
