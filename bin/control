@@ -14,13 +14,13 @@ fi
 if [ -z "$OPENSHIFT_RUBY_IMPLEMENTATION" ]
 then
   OPENSHIFT_RUBY_IMPLEMENTATION="default"
-  echo "default" > $OPENSHIFT_HOMEDIR/.env/user_vars/OPENSHIFT_RUBY_IMPLEMENTATION
+  echo -n "default" > $OPENSHIFT_HOMEDIR/.env/user_vars/OPENSHIFT_RUBY_IMPLEMENTATION
+  echo -n "default" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_RUNNING_IMPLEMENTATION
+
 fi
 
 
 function start() {
-    update-configuration $OPENSHIFT_RUBY_VERSION
-
     echo "Starting Ruby cartridge using ${OPENSHIFT_RUBY_SERVER} webserver."
   
     if ! is_server_installed $OPENSHIFT_RUBY_SERVER && ! is_bundler_used

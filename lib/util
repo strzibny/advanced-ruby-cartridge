@@ -22,6 +22,7 @@ function update-configuration {
         export GEM_HOME="${OPENSHIFT_HOMEDIR}/.gem-jruby"
         echo -n "${OPENSHIFT_HOMEDIR}/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}/bin:" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_PATH_ELEMENT
         echo -n "${GEM_HOME}/bin" >> $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_PATH_ELEMENT
+        echo -n "jruby" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_RUNNING_IMPLEMENTATION
       else
         export GEM_HOME="${OPENSHIFT_HOMEDIR}/.gem"
         case "$1" in
