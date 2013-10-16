@@ -5,6 +5,7 @@ source "${OPENSHIFT_RUBY_DIR}/lib/util"
 source "${OPENSHIFT_RUBY_DIR}/lib/ruby_context"
 source "${OPENSHIFT_RUBY_DIR}/servers/passenger/env_variables"
 
+source "${OPENSHIFT_RUBY_DIR}/lib/no_jruby"
 
 update_httpd_passenv $HTTPD_CFG_FILE
 touch $OPENSHIFT_REPO_DIR/tmp/restart.txt

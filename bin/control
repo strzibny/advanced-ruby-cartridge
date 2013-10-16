@@ -34,22 +34,26 @@ function start() {
     ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_SERVER}/control/start
     popd 1>/dev/null    
 
-    echo -n "${OPENSHIFT_RUBY_SERVER}" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_SERVER_LATEST_STARTED
+    echo -n "${OPENSHIFT_RUBY_SERVER}" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_RUNNING_SERVER
 }
 
 function stop() {
-    echo "Stopping ${OPENSHIFT_RUBY_SERVER_LATEST_STARTED} server"
+    echo "Stopping ${OPENSHIFT_RUBY_RUNNING_SERVER} server"
 
-    pushd $OPENSHIFT_REPO_DIR 1>/dev/null
-    ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_SERVER_LATEST_STARTED}/control/stop
-    popd 1>/dev/null   
+    if [ "$OPENSHIFT_RUBY_RUNNING_SERVER" != "none" ]
+    then
+        pushd $OPENSHIFT_REPO_DIR 1>/dev/null
+        ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_RUNNING_SERVER}/control/stop
+        popd 1>/dev/null
+        echo -n "none" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_RUNNING_SERVER
+    fi
 }
 
 function restart() {
     echo "${1}ing Ruby cart"
 
     #if server is changed, we will stop the running server and start newly defined server, otherwise just restart current server
-    if [ $OPENSHIFT_RUBY_SERVER_LATEST_STARTED != $OPENSHIFT_RUBY_SERVER ]
+    if [ $OPENSHIFT_RUBY_RUNNING_SERVER != $OPENSHIFT_RUBY_SERVER ]
     then
       stop
       start
@@ -61,7 +65,7 @@ function restart() {
 }
 
 function server() {
-  client_result "Application is using ${OPENSHIFT_RUBY_SERVER_LATEST_STARTED} server."
+  client_result "Application is using ${OPENSHIFT_RUBY_RUNNING_SERVER} server."
 }
 
 function status() {

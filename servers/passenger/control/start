@@ -5,6 +5,8 @@ source "${OPENSHIFT_RUBY_DIR}/lib/util"
 source "${OPENSHIFT_RUBY_DIR}/lib/ruby_context"
 source "${OPENSHIFT_RUBY_DIR}/servers/passenger/env_variables"
 
+source "${OPENSHIFT_RUBY_DIR}/lib/no_jruby"
+
 update_httpd_passenv $HTTPD_CFG_FILE
 ensure_valid_httpd_process "$OPENSHIFT_RUBY_SERVER_PID" "$HTTPD_CFG_FILE"
 ruby_context "/usr/sbin/httpd -C 'Include $OPENSHIFT_RUBY_DIR/etc/conf.d/*.conf' -f $HTTPD_CFG_FILE -k start"

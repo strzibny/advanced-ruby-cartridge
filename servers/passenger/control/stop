@@ -5,6 +5,7 @@ source "${OPENSHIFT_RUBY_DIR}/lib/util"
 source "${OPENSHIFT_RUBY_DIR}/lib/ruby_context"
 source "${OPENSHIFT_RUBY_DIR}/servers/passenger/env_variables"
 
+source "${OPENSHIFT_RUBY_DIR}/lib/no_jruby"
 
 ensure_valid_httpd_process "$OPENSHIFT_RUBY_SERVER_PID" "$HTTPD_CFG_FILE"
 if [ -f "$OPENSHIFT_RUBY_SERVER_PID" ]; then

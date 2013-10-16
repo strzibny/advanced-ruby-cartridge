@@ -5,7 +5,7 @@
 function ruby_context {
   if [ "$OPENSHIFT_RUBY_RUNNING_IMPLEMENTATION" = "jruby" ]
   then
-    jruby -S "$1"
+    jruby -S $1 # can't be in semicolons!!
   else
     case $OPENSHIFT_RUBY_VERSION in
       1.8) eval $1 ;;
