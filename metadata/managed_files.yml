@@ -1,11 +1,11 @@
 ---
 locked_files:
-- bin/
-- bin/*
-- metadata/
-- metadata/*
-- hooks/
-- hooks/*
+#- bin/
+#- bin/*
+#- metadata/
+#- metadata/*
+#- hooks/
+#- hooks/*
 #- etc/
 #- etc/conf.d/
 #- etc/conf.d/*

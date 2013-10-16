@@ -156,7 +156,7 @@ function deploy() {
     if [ -f Rakefile ] && bundle exec "rake -T" | grep "assets:precompile" >/dev/null
     then
       echo "Precompiling with 'bundle exec rake assets:precompile'"
-      ruby_context "bundle exec rake assets:precompile"
+      ruby_context "bundle exec rake assets:precompile RAILS_ENV=production"
     fi
   fi
   popd > /dev/null
