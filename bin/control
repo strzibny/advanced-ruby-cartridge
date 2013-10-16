@@ -221,7 +221,6 @@ case "$1" in
   server)            server ;;
   tidy)              tidy ;;
   pre-repo-archive)  pre-repo-archive ;;
-  pre-build)         pre-build ;;
   build)             build ;;
   deploy)            deploy ;;
   post-deploy)       post-deploy ;;
