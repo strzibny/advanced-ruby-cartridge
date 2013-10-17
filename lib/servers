@@ -23,7 +23,7 @@ function gem_exists() {
 function run_command() {
 	if is_bundler_used
 	then
-		ruby_context 'bundle exec "'"$1"'"'
+		ruby_context "bundle exec $1 "
 	else
 		ruby_context "$1"
 	fi
