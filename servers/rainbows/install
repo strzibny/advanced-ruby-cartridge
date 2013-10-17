@@ -1,3 +1,0 @@
-#!/bin/bash -e
-
-gem install rainbows --no-rdoc --no-ri

@@ -1,3 +1,0 @@
-#!/bin/bash -e
-
-kill -QUIT `cat ${OPENSHIFT_RUBY_DIR}run/server.pid`

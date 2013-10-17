@@ -20,6 +20,7 @@ function gem_exists() {
 	[ "`gem list -i $1`" == "true" ]
 }
 
+# if bundler is used, it's needed to run gems in bundle context
 function run_command() {
 	if is_bundler_used
 	then
@@ -32,4 +33,22 @@ function run_command() {
 
 function is_bundler_used() {
 	[ -f ${OPENSHIFT_REPO_DIR}/Gemfile ]	
+}
+
+
+# check compatibility issues
+function no-jruby() {
+  if [ "$OPENSHIFT_RUBY_RUNNING_IMPLEMENTATION" = "jruby" ]
+  then
+    echo "This server is does not supported by JRuby."
+    exit 1
+  fi
+}
+
+function only-jruby() {
+  if [ "$OPENSHIFT_RUBY_RUNNING_IMPLEMENTATION"  != "jruby" ]
+  then
+    echo "This server is supported only with JRuby"
+    exit 1
+  fi
 }

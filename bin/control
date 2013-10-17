@@ -8,6 +8,8 @@ source "${OPENSHIFT_RUBY_DIR}/lib/servers"
 if [ -z "$OPENSHIFT_RUBY_SERVER" ]
 then
   OPENSHIFT_RUBY_SERVER="passenger" #by default
+
+  # ~/.env/user_vars are displayed to user through rhc env list command
   echo "passenger" > $OPENSHIFT_HOMEDIR/.env/user_vars/OPENSHIFT_RUBY_SERVER
 fi
 
@@ -22,6 +24,11 @@ fi
 
 function start() {
     echo "Starting Ruby cartridge using ${OPENSHIFT_RUBY_SERVER} webserver."
+
+    if [ "${OPENSHIFT_RUBY_RUNNING_IMPLEMENTATION}" = "jruby" ]
+    then
+      echo "Cartridge is running on JRuby."
+    fi
   
     if ! is_server_installed $OPENSHIFT_RUBY_SERVER && ! is_bundler_used
     then
@@ -31,7 +38,7 @@ function start() {
     fi
 
     pushd $OPENSHIFT_REPO_DIR 1>/dev/null
-    ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_SERVER}/control/start
+    ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_SERVER}/control start
     popd 1>/dev/null    
 
     echo -n "${OPENSHIFT_RUBY_SERVER}" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_RUNNING_SERVER
@@ -42,7 +49,7 @@ function stop() {
     then
         echo "Stopping ${OPENSHIFT_RUBY_RUNNING_SERVER} server"
         pushd $OPENSHIFT_REPO_DIR 1>/dev/null
-        ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_RUNNING_SERVER}/control/stop
+        ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_RUNNING_SERVER}/control stop
         popd 1>/dev/null
         echo -n "none" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_RUNNING_SERVER
     fi
@@ -58,13 +65,22 @@ function restart() {
       start
     else
       pushd $OPENSHIFT_REPO_DIR 1>/dev/null
-      ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_SERVER}/control/restart
+      ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_SERVER}/control restart
       popd 1>/dev/null
     fi 
 }
 
 function server() {
   client_result "Application is using ${OPENSHIFT_RUBY_RUNNING_SERVER} server."
+}
+
+function ruby-implementation() {
+  if [ "${OPENSHIFT_RUBY_RUNNING_IMPLEMENTATION}" = "jruby" ]
+  then
+    client_result "Cartridge is running on JRuby."
+  else
+    client_result "Cartridge is running on default implementation of ruby."
+  fi
 }
 
 function status() {
@@ -220,12 +236,13 @@ case "$1" in
   restart | reload ) restart $1 ;;
   status)            status ;;
   server)            server ;;
+  ruby-implementation) ruby-implementation ;;
   tidy)              tidy ;;
   pre-repo-archive)  pre-repo-archive ;;
   build)             build ;;
   deploy)            deploy ;;
   post-deploy)       post-deploy ;;
   threaddump)        threaddump ;;
-  update-configuration)   update-configuration $OPENSHIFT_RUBY_VERSION;;
+  #update-configuration)   update-configuration $OPENSHIFT_RUBY_VERSION;; ## should not be called directly!!
   *)                 exit 0
 esac

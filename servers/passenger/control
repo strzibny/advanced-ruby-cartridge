@@ -1,0 +1,42 @@
+#!/bin/bash -e
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+source "${OPENSHIFT_RUBY_DIR}/lib/util"
+source "${OPENSHIFT_RUBY_DIR}/lib/ruby_context"
+source "${OPENSHIFT_RUBY_DIR}/lib/servers"
+source "${OPENSHIFT_RUBY_DIR}/servers/passenger/env_variables"
+
+no-jruby
+
+function start() {
+  update_httpd_passenv $HTTPD_CFG_FILE
+  ensure_valid_httpd_process "$OPENSHIFT_RUBY_SERVER_PID" "$HTTPD_CFG_FILE"
+  ruby_context "/usr/sbin/httpd -C 'Include $OPENSHIFT_RUBY_DIR/etc/conf.d/*.conf' -f $HTTPD_CFG_FILE -k start"
+}
+
+function stop() {
+  ensure_valid_httpd_process "$OPENSHIFT_RUBY_SERVER_PID" "$HTTPD_CFG_FILE"
+  if [ -f "$OPENSHIFT_RUBY_SERVER_PID" ]; then
+	httpd_pid=`cat "$OPENSHIFT_RUBY_SERVER_PID" 2> /dev/null`
+  fi
+  ruby_context "/usr/sbin/httpd -C 'Include $OPENSHIFT_RUBY_DIR/etc/conf.d/*.conf' -f $HTTPD_CFG_FILE -k stop"
+  wait_for_stop $httpd_pid
+
+}
+
+function restart() {
+  update_httpd_passenv $HTTPD_CFG_FILE
+  touch $OPENSHIFT_REPO_DIR/tmp/restart.txt
+  ensure_httpd_restart_succeed "$OPENSHIFT_RUBY_SERVER_PID" "$HTTPD_CFG_FILE"
+  ruby_context "/usr/sbin/httpd -C 'Include $OPENSHIFT_RUBY_DIR/etc/conf.d/*.conf' -f $HTTPD_CFG_FILE -k restart"
+}
+
+
+
+
+case "$1" in
+  start)   start ;;
+  stop)    stop ;;
+  restart) restart ;;
+  *)       exit 0
+esac

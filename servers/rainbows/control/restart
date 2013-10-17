@@ -1,4 +1,0 @@
-#!/bin/bash -e
-
-${OPENSHIFT_RUBY_DIR}/servers/rainbows/control/stop 
-${OPENSHIFT_RUBY_DIR}/servers/rainbows/control/start

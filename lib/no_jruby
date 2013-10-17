@@ -1,7 +1,0 @@
-# include in server which does not support JRuby.
-
-if [ "$OPENSHIFT_RUBY_RUNNING_IMPLEMENTATION" = "jruby" ]
-then
-    echo "This server is doesn't supported by JRuby."
-    exit 1
-fi

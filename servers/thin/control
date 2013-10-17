@@ -1,0 +1,22 @@
+#!/bin/bash -e
+
+source "${OPENSHIFT_RUBY_DIR}/lib/servers"
+
+function start() {
+  run_command 'thin start -C ${OPENSHIFT_RUBY_DIR}/servers/thin/config.yml'
+}
+
+function stop() {
+  run_command 'thin stop -C ${OPENSHIFT_RUBY_DIR}/servers/thin/config.yml'
+}
+
+function restart() {
+  run_command 'thin restart -C ${OPENSHIFT_RUBY_DIR}/servers/thin/config.yml'
+}
+
+case "$1" in
+  start)    start ;;
+  stop)     stop ;;
+  restart)  restart ;;
+  *)        exit 0
+esac

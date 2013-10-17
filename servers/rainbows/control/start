@@ -1,5 +1,0 @@
-#!/bin/bash -e
-
-source "${OPENSHIFT_RUBY_DIR}/lib/servers" 
-
-run_command 'rainbows -c ${OPENSHIFT_RUBY_DIR}/servers/rainbows/config.rb -D -E "production"'

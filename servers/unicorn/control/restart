@@ -1,4 +1,0 @@
-#!/bin/bash -e
-
-${OPENSHIFT_RUBY_DIR}/servers/unicorn/control/stop 
-${OPENSHIFT_RUBY_DIR}/servers/unicorn/control/start

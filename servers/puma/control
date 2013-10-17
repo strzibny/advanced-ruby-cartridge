@@ -1,0 +1,26 @@
+#!/bin/bash -e
+
+source "${OPENSHIFT_RUBY_DIR}/lib/servers"
+
+
+function start() {
+  run_command 'puma --config ${OPENSHIFT_RUBY_DIR}/servers/puma/config.rb'
+}
+
+
+function stop() {
+  run_command 'pumactl --state "${OPENSHIFT_RUBY_DIR}run/server.state" stop'
+}
+
+function restart() {
+  run_command 'pumactl --state "${OPENSHIFT_RUBY_DIR}run/server.state" restart'
+}
+
+
+
+case "$1" in
+  start)    start ;;
+  stop)     stop ;;
+  restart)  restart ;;
+  *)        exit 0 ;;
+esac
