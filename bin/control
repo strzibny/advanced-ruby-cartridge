@@ -214,10 +214,6 @@ function _threaddump() {
   fi
 }
 
-
-url: "jdbc:mysql://<%= ENV['OPENSHIFT_MYSQL_DB_HOST'] %>:<%= ENV['OPENSHIFT_MYSQL_DB_PORT'] %>/"
-
-
 case "$1" in
   start)             start ;;
   stop)              stop ;;
