@@ -3,7 +3,7 @@
 source "${OPENSHIFT_RUBY_DIR}/lib/servers"
 
 function start() {
-  run_command 'unicorn -c ${OPENSHIFT_RUBY_DIR}/servers/unicorn/config.rb -D -E "production"'
+  run_command "unicorn -c ${OPENSHIFT_RUBY_DIR}/servers/unicorn/config.rb -D -E production"
 }
 
 function stop() {

@@ -4,16 +4,16 @@ source "${OPENSHIFT_RUBY_DIR}/lib/servers"
 
 
 function start() {
-  run_command 'puma --config ${OPENSHIFT_RUBY_DIR}/servers/puma/config.rb'
+  run_command "puma --config ${OPENSHIFT_RUBY_DIR}/servers/puma/config.rb"
 }
 
 
 function stop() {
-  run_command 'pumactl --state "${OPENSHIFT_RUBY_DIR}run/server.state" stop'
+  run_command "pumactl --state ${OPENSHIFT_RUBY_DIR}run/server.state stop"
 }
 
 function restart() {
-  run_command 'pumactl --state "${OPENSHIFT_RUBY_DIR}run/server.state" restart'
+  run_command "pumactl --state ${OPENSHIFT_RUBY_DIR}run/server.state restart"
 }
 
 
