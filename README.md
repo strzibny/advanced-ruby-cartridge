@@ -20,6 +20,8 @@ Managing used webserver
 
 By default passenger webserver is used. In order to change it we will use new feature of <code>rhc</code> which allows us to change environment variables. Set name of the server to <code>OPENSHIFT_RUBY_SERVER</code> variable.
 
+If you are missing some webserver, you can take advantage of support for adding custom webserver, more info below.
+
 	# supported are (for default ruby environment): puma, unicorn, rainbows, thin, passenger
 	# supported for jruby are: puma
 
@@ -72,7 +74,11 @@ For creating your own custom control script use this template.
 
 And set <code>OPENSHIFT_RUBY_SERVER</code> variable to <code>custom</code> running this command <code>rhc env set OPENSHIFT_RUBY_SERVER=custom -a YOUR_APP_NAME</code>.
 
-If you have problem with debugging I highly recommend to ssh into your app and test it there to see all error messages.
+For inspiration, you can take a look to <code>servers</code> directory, to be specific into <code>control</code> file of some webserver.
+
+It's highly advised to run any ruby command with <code>ruby_context</code> function, so for example <code>ruby_context "puma --help"</code>, use it even for installing gems or you will experienced a lot of problems if you are using JRuby.
+
+If you have problem with debugging I recommend you to ssh into your app (<code>rhc ssh APP_NAME</code>) and test it there to see all error messages.
 
 Changing Ruby environment to JRuby
 ==================================
@@ -96,7 +102,7 @@ Check which Ruby environment is currently running by using
 Example Rails application
 =========================
 
-If you have any problems with running application using this cartridge, take a look at my example Rails application which supports either JRuby or default Ruby environment. (will be here soon :) )
+If you have any problems with running application using this cartridge, take a look at my example Rails application which supports JRuby and also default Ruby environment. (link will be here soon :) )
 
 
-If you want contact me, send me an email on pbrazdil@redhat.com
+If you want to contact me, send me an email on pbrazdil@redhat.com
