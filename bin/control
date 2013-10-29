@@ -9,7 +9,7 @@ if [ -z "$OPENSHIFT_RUBY_SERVER" ]
 then
   OPENSHIFT_RUBY_SERVER="passenger" #by default
 
-  # ~/.env/user_vars are displayed to user through rhc env list command
+  # ~/.env/user_vars are displayed to user through 'rhc env list' command
   echo "passenger" > $OPENSHIFT_HOMEDIR/.env/user_vars/OPENSHIFT_RUBY_SERVER
 fi
 
@@ -38,7 +38,7 @@ function start() {
     fi
 
     pushd $OPENSHIFT_REPO_DIR 1>/dev/null
-    ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_SERVER}/control start
+    server-control $OPENSHIFT_RUBY_SERVER start
     popd 1>/dev/null    
 
     echo -n "${OPENSHIFT_RUBY_SERVER}" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_RUNNING_SERVER
@@ -49,7 +49,7 @@ function stop() {
     then
         echo "Stopping ${OPENSHIFT_RUBY_RUNNING_SERVER} server"
         pushd $OPENSHIFT_REPO_DIR 1>/dev/null
-        ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_RUNNING_SERVER}/control stop
+        server-control $OPENSHIFT_RUBY_RUNNING_SERVER stop
         popd 1>/dev/null
         echo -n "none" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_RUNNING_SERVER
     fi
@@ -65,7 +65,7 @@ function restart() {
       start
     else
       pushd $OPENSHIFT_REPO_DIR 1>/dev/null
-      ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_SERVER}/control restart
+      server-control $OPENSHIFT_RUBY_SERVER restart
       popd 1>/dev/null
     fi 
 }
@@ -203,7 +203,6 @@ function threaddump() {
       DATE=`date -u '+%Y%m%d'`
       client_result "Success"
       client_result ""
-      # note bz 923405/921537 for why log file name is not more specific
       client_result "The thread dump file will be available via: rhc tail ${OPENSHIFT_APP_NAME} -g ${OPENSHIFT_GEAR_UUID} -f ${OPENSHIFT_RUBY_LOG_DIR}/error_log-$DATE-* -o '-n 250'"
   else
       client_result " $result"
