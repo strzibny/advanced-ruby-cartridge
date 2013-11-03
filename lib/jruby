@@ -17,17 +17,16 @@ function jruby-install() {
 
   tar xf jruby.tar.gz
   rm -rf jruby.tar.gz
-  mkdir -p ${OPENSHIFT_HOMEDIR}/.jruby
   mkdir -p ${OPENSHIFT_HOMEDIR}/.gem-jruby/bin
 
   # jruby executables are stored in ~/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}/
-  mv jruby-${OPENSHIFT_JRUBY_VERSION} ${OPENSHIFT_HOMEDIR}/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}
+  mv jruby-${OPENSHIFT_JRUBY_VERSION} ${OPENSHIFT_RUBY_DIR}/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}
 
-  # not needed anymore
-  #export GEM_HOME="${OPENSHIFT_HOMEDIR}/.gem-jruby/"
+  ln -s ${OPENSHIFT_RUBY_DIR}/versions/shared/jruby ${OPENSHIFT_RUBY_DIR}/.jruby/jruby
 
   # for jruby we are storing gems in ~/.gem-jruby/
-  GEM_HOME=${OPENSHIFT_HOMEDIR}/.gem-jruby/ GEM_PATH=${OPENSHIFT_HOMEDIR}/.gem-jruby/  ${OPENSHIFT_HOMEDIR}/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}/bin/jruby -S gem install bundler rake
+  ${OPENSHIFT_RUBY_DIR}/.jruby/jruby -S gem install bundler rake
   echo "JRuby installed."
+
   return 0
 }
