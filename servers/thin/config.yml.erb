@@ -4,7 +4,7 @@ port: <%= ENV['OPENSHIFT_RUBY_PORT'] %>
 pid: <%= ENV['OPENSHIFT_RUBY_SERVER_PID'] %>
 timeout: 30
 wait: 30
-log: <%= ENV['OPENSHIFT_RUBY_SERVER_STDOUT_LOG'] %>
+log: <%= ENV['OPENSHIFT_RUBY_LOG_DIR'] %>/thin_stdout.log
 max_conns: 1024
 require: []
 environment: production

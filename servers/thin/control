@@ -2,6 +2,8 @@
 
 source "${OPENSHIFT_RUBY_DIR}/lib/servers"
 
+no-jruby
+
 function start() {
   run_command "thin start -C ${OPENSHIFT_RUBY_DIR}/servers/thin/config.yml"
 }

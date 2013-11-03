@@ -24,9 +24,13 @@ function jruby-install() {
 
   ln -s ${OPENSHIFT_RUBY_DIR}/versions/shared/jruby ${OPENSHIFT_RUBY_DIR}/.jruby/jruby
 
-  # for jruby we are storing gems in ~/.gem-jruby/
-  ${OPENSHIFT_RUBY_DIR}/.jruby/jruby -S gem install bundler rake
+  install-needed-gems
+
   echo "JRuby installed."
 
   return 0
+}
+
+function install-needed-gems() {
+  ${OPENSHIFT_RUBY_DIR}/.jruby/jruby -S gem install bundler rake
 }
