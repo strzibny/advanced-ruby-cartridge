@@ -3,7 +3,7 @@
 
 # RHEL OpenShift Online supported versions
 function ruby_context {
-  if [ "$OPENSHIFT_RUBY_RUNNING_IMPLEMENTATION" = "jruby" ]
+  if [ "$OPENSHIFT_RUBY_RUNNING_PLATFORM" = "jruby" ]
   then
     #GEM_HOME=${OPENSHIFT_HOMEDIR}/.gem-jruby/ GEM_PATH=${OPENSHIFT_HOMEDIR}/.gem-jruby/ jruby -S $1
 

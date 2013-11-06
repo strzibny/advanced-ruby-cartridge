@@ -49,7 +49,7 @@ function server-control() {
 
 # check compatibility issues
 function no-jruby() {
-  if [ "$OPENSHIFT_RUBY_RUNNING_IMPLEMENTATION" = "jruby" ]
+  if [ "$OPENSHIFT_RUBY_RUNNING_PLATFORM" = "jruby" ]
   then
     echo "This server is does not supported by JRuby."
     exit 1
@@ -57,7 +57,7 @@ function no-jruby() {
 }
 
 function only-jruby() {
-  if [ "$OPENSHIFT_RUBY_RUNNING_IMPLEMENTATION"  != "jruby" ]
+  if [ "$OPENSHIFT_RUBY_RUNNING_PLATFORM"  != "jruby" ]
   then
     echo "This server is supported only with JRuby"
     exit 1

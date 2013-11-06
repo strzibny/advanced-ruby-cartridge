@@ -87,10 +87,10 @@ By default classic ruby implementation is used, but this cartridge also supports
 
 
     # for default ruby implementation
-    rhc env set OPENSHIFT_RUBY_IMPLEMENTATION=default -a YOUR_APP_NAME
+    rhc env set OPENSHIFT_RUBY_PLATFORM=default -a YOUR_APP_NAME
 
     # for jruby
-    rhc env set OPENSHIFT_RUBY_IMPLEMENTATION=jruby -a YOUR_APP_NAME
+    rhc env set OPENSHIFT_RUBY_PLATFORM=jruby -a YOUR_APP_NAME
 
 Ruby environment is automatically changed only after new deploy of your code.
 
