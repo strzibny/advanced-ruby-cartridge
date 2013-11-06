@@ -9,7 +9,7 @@ function jruby-install() {
   # needed in order to support scaling
   if [ "$OPENSHIFT_JRUBY_VERSION" == "" ]
   then
-    OPENSHIFT_JRUBY_VERSION=`curl http://jruby.org/download | ruby -e "s=ARGF.read;x=/Current Release: JRuby (\d\.\d\.\d)/m.match(s);puts x[1]"`
+    export OPENSHIFT_JRUBY_VERSION=`curl http://jruby.org/download | ruby -e "s=ARGF.read;x=/Current Release: JRuby (\d\.\d\.\d)/m.match(s);puts x[1]"`
   fi
 
   echo "$OPENSHIFT_JRUBY_VERSION" > ${OPENSHIFT_JRUBY_DIR}env/OPENSHIFT_JRUBY_VERSION
