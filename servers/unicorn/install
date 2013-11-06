@@ -1,3 +1,8 @@
 #!/bin/bash -e
 
-gem install unicorn --no-rdoc --no-ri
+source "${OPENSHIFT_RUBY_DIR}/lib/ruby_context"
+source "${OPENSHIFT_RUBY_DIR}/lib/servers"
+
+no-jruby
+
+ruby_context "gem install unicorn --no-rdoc --no-ri"
