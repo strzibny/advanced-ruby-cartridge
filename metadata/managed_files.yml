@@ -21,5 +21,4 @@ processed_templates:
 - 'etc/conf.d/openshift.conf.erb'
 #- 'metadata/jenkins_shell_command.erb'
 - 'servers/*/*.erb'
-- 'jruby.erb'
 - 'versions/shared/jruby.erb'
