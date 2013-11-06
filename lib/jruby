@@ -23,7 +23,8 @@ function jruby-install() {
   # jruby executables are stored in ~/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}/
   mv jruby-${OPENSHIFT_JRUBY_VERSION} ${OPENSHIFT_RUBY_DIR}/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}
 
-  ln -s ${OPENSHIFT_RUBY_DIR}/versions/shared/jruby ${OPENSHIFT_RUBY_DIR}/.jruby/jruby
+  #ln -s ${OPENSHIFT_RUBY_DIR}/versions/shared/jruby ${OPENSHIFT_RUBY_DIR}/.jruby/jruby
+  ln -s ${OPENSHIFT_RUBY_DIR}/jruby ${OPENSHIFT_RUBY_DIR}/.jruby/jruby
 
   install-needed-gems
 
