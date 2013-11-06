@@ -2,8 +2,7 @@
 locked_files:
 - .jruby
 - .jruby/*
-- .jruby/*/*
-- .jruby/*/*/* #TODO: fix it
+- .jruby/**/*
 #- bin/
 #- bin/*
 #- metadata/
