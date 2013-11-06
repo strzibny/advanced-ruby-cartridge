@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+
 function jruby-install() {
   echo "Installing JRuby..."
 
@@ -34,8 +37,8 @@ function jruby-install() {
 }
 
 function install-needed-gems() {
-  echo `ls -la ${OPENSHIFT_RUBY_DIR}`
-  echo `ls -la ${OPENSHIFT_RUBY_DIR}/.jruby/`
+  client_result `ls -la ${OPENSHIFT_RUBY_DIR}`
+  client_result `ls -la ${OPENSHIFT_RUBY_DIR}/.jruby/`
 
   ${OPENSHIFT_RUBY_DIR}/.jruby/jruby -S gem install bundler rake
 }
