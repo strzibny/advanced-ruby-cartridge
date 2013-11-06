@@ -1,6 +1,6 @@
 ---
 locked_files:
-- .jruby
+- .jruby/
 - .jruby/*
 - .jruby/**/*
 #- bin/

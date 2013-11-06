@@ -18,7 +18,6 @@ function jruby-install() {
   tar xf jruby.tar.gz
   rm -rf jruby.tar.gz
   mkdir -p ${OPENSHIFT_HOMEDIR}/.gem-jruby/bin
-  rm ${OPENSHIFT_RUBY_DIR}/.jruby #TODO: file .jruby is somehow created
   mkdir -p ${OPENSHIFT_RUBY_DIR}/.jruby/
 
   # jruby executables are stored in ~/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}/
