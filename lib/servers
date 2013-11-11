@@ -17,7 +17,7 @@ function is_server_installed {
 }
 
 function gem_exists() {
-	[ "`gem list -i $1`" == "true" ]
+	[ "`ruby_context "gem list -i $1"`" == "true" ]
 }
 
 # if bundler is used, it's needed to run gems in bundle context
