@@ -1,5 +1,5 @@
 # OpenShift Advanced Ruby Cartridge
-Ruby cartridge, which is used in Openshift, supports by default only passenger server running on Apache. But this Advanced Ruby cartridge allows you to use other popular servers, to be specific **puma**, **unicorn**, **thin**, **rainbows** and **passenger**. And you are allowed to switch Ruby environment to **JRuby**!
+Ruby cartridge, which is used in Openshift, supports by default only passenger server running on Apache. But this Advanced Ruby cartridge allows you to use other popular servers, to be specific **puma**, **unicorn**, **thin**, **rainbows** and **passenger**. And you are allowed to switch Ruby platform to **JRuby**!
 
 This for example means you can take advantage of websockets or better performance for your specific application. Not speaking about advantages of JRuby! Especially for production servers and enterprise applications.
 
@@ -22,7 +22,7 @@ By default passenger webserver is used. In order to change it we will use new fe
 
 If you are missing some webserver, you can take advantage of support for adding custom webserver, more info below.
 
-	# supported are (for default ruby environment): puma, unicorn, rainbows, thin, passenger
+	# supported are (for default ruby platform): puma, unicorn, rainbows, thin, passenger
 	# supported for jruby are: puma
 
 	rhc env set OPENSHIFT_RUBY_SERVER=puma -a YOUR_APP_NAME
@@ -80,7 +80,7 @@ It's highly advised to run any ruby command with <code>ruby_context</code> funct
 
 If you have problem with debugging I recommend you to ssh into your app (<code>rhc ssh APP_NAME</code>) and test it there to see all error messages.
 
-Changing Ruby environment to JRuby
+Changing Ruby platform to JRuby
 ==================================
 
 By default classic ruby implementation is used, but this cartridge also supports JRuby which can be switched as easy as changing webserver. You can switch to JRuby and vice versa in anytime, not just before first deploy.
@@ -92,9 +92,9 @@ By default classic ruby implementation is used, but this cartridge also supports
     # for jruby
     rhc env set OPENSHIFT_RUBY_PLATFORM=jruby -a YOUR_APP_NAME
 
-Ruby environment is automatically changed only after new deploy of your code.
+Ruby platform is automatically changed only after new deploy of your code.
 
-Check which Ruby environment is currently running by using
+Check which Ruby platform is currently running by using
 
 	rhc ssh YOUR_APP_NAME '~/advanced-ruby/bin/control ruby-implementation'
 

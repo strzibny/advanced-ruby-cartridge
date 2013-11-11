@@ -10,10 +10,8 @@ Versions:
 License: Ruby BSDL
 License-Url: http://www.ruby-lang.org/en/about/license.txt
 Vendor: ruby.org
-Cartridge-Version: 0.0.6
-Compatible-Versions:
-- 0.0.4
-- 0.0.5
+Cartridge-Version: 0.0.9
+Compatible-Versions: []
 Cartridge-Vendor: pbrazdil
 Categories:
 - service
@@ -54,19 +52,9 @@ Cart-Data:
   Type: environment
   Description: Unique ID which identified the gear. This value changes between gears.
 Publishes:
-  publish-http-url:
-    Type: NET_TCP:httpd-proxy-info
-  publish-gear-endpoint:
-    Type: NET_TCP:gear-endpoint-info
 Subscribes:
   set-env:
     Type: ENV:*
-    Required: false
-  set-mysql-connection-info:
-    Type: NET_TCP:db:mysql
-    Required: false
-  set-postgres-connection-info:
-    Type: NET_TCP:db:postgres
     Required: false
   set-doc-url:
     Type: STRING:urlpath
@@ -82,6 +70,11 @@ Endpoints:
   Private-Port-Name: PORT
   Private-Port: 8080
   Public-Port-Name: PROXY_PORT
+  Protocols:
+  - http
+  - ws
+  Options:
+    primary: true
   Mappings:
   - Frontend: ''
     Backend: ''

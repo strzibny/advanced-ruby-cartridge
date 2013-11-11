@@ -29,14 +29,14 @@ function jruby-install() {
   chmod +x ${OPENSHIFT_RUBY_DIR}/versions/shared/jruby
   ln -s ${OPENSHIFT_RUBY_DIR}/versions/shared/jruby ${OPENSHIFT_RUBY_DIR}/.jruby/jruby
 
-  install-needed-gems
+  install-required-gems
 
   echo "JRuby installed."
 
   return 0
 }
 
-function install-needed-gems() {
+function install-required-gems() {
   ${OPENSHIFT_RUBY_DIR}/.jruby/jruby -S gem install bundler rake
   return 0
 }
