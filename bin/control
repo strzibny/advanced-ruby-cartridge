@@ -16,9 +16,10 @@ fi
 if [ -z "$OPENSHIFT_RUBY_PLATFORM" ]
 then
   OPENSHIFT_RUBY_PLATFORM="default"
-  echo -n "default" > $OPENSHIFT_HOMEDIR/.env/user_vars/OPENSHIFT_RUBY_PLATFORM
-  echo -n "default" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_RUNNING_PLATFORM
 
+  echo -n "default" > $OPENSHIFT_HOMEDIR/.env/user_vars/OPENSHIFT_RUBY_PLATFORM
+
+  set_active_platform "default"
 fi
 
 
@@ -30,7 +31,7 @@ function start() {
       echo "Cartridge is running on JRuby."
     fi
   
-    if ! is_server_installed $OPENSHIFT_RUBY_SERVER && ! is_bundler_used
+    if !is_server_installed $OPENSHIFT_RUBY_SERVER && !is_bundler_used
     then
       echo "Installing ${OPENSHIFT_RUBY_SERVER} ..."
       ${OPENSHIFT_RUBY_DIR}/servers/${OPENSHIFT_RUBY_SERVER}/install
@@ -116,7 +117,7 @@ function pre-repo-archive() {
 
 function build() {
     echo "Building Ruby cartridge"
-    update-configuration $OPENSHIFT_RUBY_VERSION
+    #update-configuration $OPENSHIFT_RUBY_VERSION
 
     USED_BUNDLER=false
     if [ -d $OPENSHIFT_RUBY_DIR/tmp/.bundle ]
@@ -237,6 +238,6 @@ case "$1" in
   deploy)            deploy ;;
   post-deploy)       post-deploy ;;
   threaddump)        threaddump ;;
-  #update-configuration)   update-configuration $OPENSHIFT_RUBY_VERSION;; ## should not be called directly!!
+  update-configuration)   update-configuration $OPENSHIFT_RUBY_VERSION;;
   *)                 exit 0
 esac

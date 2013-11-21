@@ -19,17 +19,8 @@ function wait_for_stop {
 function update-configuration {
     if [ "$OPENSHIFT_RUBY_PLATFORM" = "jruby" ]
       then
-        #GEM_HOME can't be overridden because of the Openshift policy
-        #echo -n "${OPENSHIFT_HOMEDIR}/.gem-jruby" > $OPENSHIFT_RUBY_DIR/env/GEM_HOME
-
-        # OPENSHIFT_RUBY_PATH_ELEMENT is automatically append to $PATH since v2 cartridges
-        #echo -n "${OPENSHIFT_HOMEDIR}/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}/bin:" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_PATH_ELEMENT
-
         echo -n "${OPENSHIFT_RUBY_DIR}/.jruby:" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_PATH_ELEMENT
-        echo -n "${OPENSHIFT_HOMEDIR}/.gem-jruby/bin" >> $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_PATH_ELEMENT
-        echo -n "jruby" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_RUNNING_PLATFORM
-
-
+        echo -n "${$OPENSHIFT_DEPENDENCIES_DIR}/.gem-jruby/bin" >> $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_PATH_ELEMENT
       else
         echo -n "default" > $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_RUNNING_PLATFORM
         case "$1" in
@@ -53,8 +44,9 @@ function update-configuration {
             esac
     fi
 
+    set_active_platform "$OPENSHIFT_RUBY_PLATFORM"
+
     local new_path=`cat $OPENSHIFT_RUBY_DIR/env/OPENSHIFT_RUBY_PATH_ELEMENT`
-    export OPENSHIFT_RUBY_RUNNING_PLATFORM="$OPENSHIFT_RUBY_PLATFORM"
     export PATH="$new_path:$PATH"
 }
 

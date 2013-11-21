@@ -1,8 +1,13 @@
 #!/bin/bash
 source "${OPENSHIFT_RUBY_DIR}/lib/ruby_context"
 
+function set_active_platform() {
+    echo -n $1 > $OPENSHIFT_DEPENDENCIES_DIR/.ruby-env/OPENSHIFT_RUBY_RUNNING_PLATFORM
+    export OPENSHIFT_RUBY_RUNNING_PLATFORM="$1"
+}
 
-function is_server_installed {
+
+function is_server_installed() {
 	case $1 in
 		"passenger"|"custom")
 			;;
@@ -49,7 +54,7 @@ function server-control() {
 }
 
 
-# check compatibility issues
+# limit compatibility
 function no-jruby() {
   if [ "$OPENSHIFT_RUBY_RUNNING_PLATFORM" = "jruby" ]
   then

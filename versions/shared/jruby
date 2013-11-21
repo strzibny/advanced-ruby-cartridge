@@ -1,3 +1,3 @@
  #!/bin/bash -e
 
- GEM_HOME=${OPENSHIFT_HOMEDIR}/.gem-jruby/ GEM_PATH=${OPENSHIFT_HOMEDIR}/.gem-jruby/ ${OPENSHIFT_RUBY_DIR}/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}/bin/jruby $*
+ GEM_HOME=${$OPENSHIFT_DEPENDENCIES_DIR}/.gem-jruby/ GEM_PATH=${$OPENSHIFT_DEPENDENCIES_DIR}/.gem-jruby/ ${OPENSHIFT_RUBY_DIR}/.jruby/jruby-${OPENSHIFT_JRUBY_VERSION}/bin/jruby $*
