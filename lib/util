@@ -1,6 +1,8 @@
 #!/bin/bash
 # Utility functions for use in the cartridge scripts.
 
+source "${OPENSHIFT_RUBY_DIR}/lib/servers"
+
 function wait_for_stop {
         pid=$1
     for i in {1..300}
