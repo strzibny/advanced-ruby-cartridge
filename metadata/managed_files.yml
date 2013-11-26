@@ -1,23 +1,25 @@
 ---
 locked_files:
 - .jruby/
-- .jruby/*
 - .jruby/**/*
-#- bin/
-#- bin/*
-#- metadata/
-#- metadata/*
-#- hooks/
-#- hooks/*
-#- etc/
-#- etc/conf.d/
-#- etc/conf.d/*
-#- env/
+- bin/
+- bin/*
+- metadata/
+- metadata/*
+- hooks/
+- hooks/*
+- conf/
+#- conf/performance.conf.erb.hidden
+- etc/
+- etc/conf/
+- etc/conf/*
+- etc/conf.d/
+- etc/conf.d/openshift.conf
+- env/
 - env/OPENSHIFT_RUBY_DIR
 - env/OPENSHIFT_RUBY_LOG_DIR
-#- servers/
-#- servers/**/*
+- servers/
+- servers/**/*
 processed_templates:
-- 'etc/conf.d/openshift.conf.erb'
-#- 'metadata/jenkins_shell_command.erb'
+- 'etc/conf.d/*.erb'
 - 'servers/*/*.erb'
