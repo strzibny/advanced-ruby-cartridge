@@ -24,3 +24,7 @@ update-configuration $version
 # Create additional directories required by RUBY and httpd
 ln -s /usr/lib64/httpd/modules $OPENSHIFT_RUBY_DIR
 ln -s /etc/httpd/conf/magic $OPENSHIFT_RUBY_DIR/etc/magic
+
+
+cp versions/shared/etc/conf.d/performance.conf.erb conf/performance.conf.erb
+cp conf/performance.conf.erb conf/performance.conf.erb.hidden
