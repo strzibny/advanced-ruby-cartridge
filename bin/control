@@ -119,7 +119,7 @@ function pre-repo-archive() {
 
 function build() {
     echo "Building Ruby cartridge"
-    #update-configuration $OPENSHIFT_RUBY_VERSION
+    update-configuration $OPENSHIFT_RUBY_VERSION
 
     USED_BUNDLER=false
     if [ -d $OPENSHIFT_RUBY_DIR/tmp/.bundle ]
