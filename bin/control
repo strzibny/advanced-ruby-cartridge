@@ -11,6 +11,8 @@ then
 
   # ~/.env/user_vars are displayed to user through 'rhc env list' command
   echo "passenger" > $OPENSHIFT_HOMEDIR/.env/user_vars/OPENSHIFT_RUBY_SERVER
+
+  set_active_server "passenger"
 fi
 
 if [ -z "$OPENSHIFT_RUBY_PLATFORM" ]

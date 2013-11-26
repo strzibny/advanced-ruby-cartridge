@@ -2,8 +2,19 @@
 source "${OPENSHIFT_RUBY_DIR}/lib/ruby_context"
 
 function set_active_platform() {
-    echo -n $1 > $OPENSHIFT_DEPENDENCIES_DIR/.ruby-env/OPENSHIFT_RUBY_RUNNING_PLATFORM
-    export OPENSHIFT_RUBY_RUNNING_PLATFORM="$1"
+    if [ -z "$1" ]
+    then
+        echo -n $1 > ${OPENSHIFT_RUBY_DIR}/env/OPENSHIFT_RUBY_RUNNING_PLATFORM
+        export OPENSHIFT_RUBY_RUNNING_PLATFORM="$1"
+    fi
+}
+
+function set_active_server() {
+    if [ -z "$1" ]
+    then
+        echo -n $1 > ${OPENSHIFT_RUBY_DIR}/env/OPENSHIFT_RUBY_RUNNING_SERVER
+        export OPENSHIFT_RUBY_RUNNING_SERVER="$1"
+    fi
 }
 
 
@@ -44,11 +55,15 @@ function is_bundler_used() {
 function server-control() {
   if [ "$1" = "custom" ]
   then
-    ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/server_control $2
+    if [ -z "$2" ]
+    then
+        ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/server_control $2
+    fi
   else
-
-    #TODO: add check if server name and action is not empty
-    ${OPENSHIFT_RUBY_DIR}/servers/$1/control $2
+    if [ -z "$1" ] && [ -z "$2" ]
+    then
+        ${OPENSHIFT_RUBY_DIR}/servers/$1/control $2
+    fi
   fi
 
 }
@@ -58,7 +73,7 @@ function server-control() {
 function no-jruby() {
   if [ "$OPENSHIFT_RUBY_RUNNING_PLATFORM" = "jruby" ]
   then
-    echo "This server is does not supported by JRuby."
+    echo "This server is not supported by JRuby."
     exit 1
   fi
 }
@@ -66,7 +81,7 @@ function no-jruby() {
 function only-jruby() {
   if [ "$OPENSHIFT_RUBY_RUNNING_PLATFORM"  != "jruby" ]
   then
-    echo "This server is supported only with JRuby"
+    echo "This server supports only JRuby"
     exit 1
   fi
 }
