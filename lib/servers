@@ -55,12 +55,12 @@ function is_bundler_used() {
 function server-control() {
   if [ "$1" = "custom" ]
   then
-    if [ -z "$2" ]
+    if [ ! -z "$2" ]
     then
         ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/server_control $2
     fi
   else
-    if [ -z "$1" ] && [ -z "$2" ]
+    if [ ! -z "$1" ] && [ ! -z "$2" ]
     then
         ${OPENSHIFT_RUBY_DIR}/servers/$1/control $2
     fi
