@@ -18,5 +18,10 @@ done
 
 mkdir -p $OPENSHIFT_RUBY_DIR/tmp
 
+# default values
+echo -n "default" > ${OPENSHIFT_RUBY_DIR}/env/OPENSHIFT_RUBY_RUNNING_PLATFORM
+echo -n "passenger" > ${OPENSHIFT_RUBY_DIR}/env/OPENSHIFT_RUBY_RUNNING_SERVER
+
+
 source "${OPENSHIFT_RUBY_DIR}/lib/jruby"
 jruby-install

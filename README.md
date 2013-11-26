@@ -22,7 +22,7 @@ By default passenger webserver is used. In order to change it we will use new fe
 
 If you are missing some webserver, you can take advantage of support for adding custom webserver, more info below.
 
-	# supported are (for default ruby platform): puma, unicorn, rainbows, thin, passenger
+	# supported are (for ruby MRI (by default)): puma, unicorn, thin, passenger
 	# supported for jruby are: puma
 
 	rhc env set OPENSHIFT_RUBY_SERVER=puma -a YOUR_APP_NAME
