@@ -17,7 +17,6 @@ for dir in etc; do
 done
 
 mkdir -p $OPENSHIFT_RUBY_DIR/tmp
-mkdir -p $OPENSHIFT_DEPENDENCIES_DIR/.ruby-env
 
 source "${OPENSHIFT_RUBY_DIR}/lib/jruby"
 jruby-install
