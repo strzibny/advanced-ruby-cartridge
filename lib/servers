@@ -2,7 +2,7 @@
 source "${OPENSHIFT_RUBY_DIR}/lib/ruby_context"
 
 function set_active_platform() {
-    if [ -z "$1" ]
+    if [ ! -z "$1" ]
     then
         echo -n $1 > ${OPENSHIFT_RUBY_DIR}/env/OPENSHIFT_RUBY_RUNNING_PLATFORM
         export OPENSHIFT_RUBY_RUNNING_PLATFORM="$1"
@@ -10,7 +10,7 @@ function set_active_platform() {
 }
 
 function set_active_server() {
-    if [ -z "$1" ]
+    if [ ! -z "$1" ]
     then
         echo -n $1 > ${OPENSHIFT_RUBY_DIR}/env/OPENSHIFT_RUBY_RUNNING_SERVER
         export OPENSHIFT_RUBY_RUNNING_SERVER="$1"
