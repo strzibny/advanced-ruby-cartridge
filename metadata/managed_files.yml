@@ -9,7 +9,7 @@ locked_files:
 - hooks/
 - hooks/*
 - conf/
-#- conf/performance.conf.erb.hidden
+- conf/performance.conf.erb.hidden
 - etc/
 - etc/conf/
 #- etc/conf/*

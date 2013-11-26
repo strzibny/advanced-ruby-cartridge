@@ -25,3 +25,7 @@ echo -n "passenger" > ${OPENSHIFT_RUBY_DIR}/env/OPENSHIFT_RUBY_RUNNING_SERVER
 
 source "${OPENSHIFT_RUBY_DIR}/lib/jruby"
 jruby-install
+
+
+cp ${OPENSHIFT_RUBY_DIR}/versions/shared/etc/conf.d/performance.conf.erb ${OPENSHIFT_RUBY_DIR}/conf/performance.conf.erb
+cp ${OPENSHIFT_RUBY_DIR}/conf/performance.conf.erb ${OPENSHIFT_RUBY_DIR}/conf/performance.conf.erb.hidden
