@@ -24,9 +24,12 @@ then
   set_active_platform "default"
 fi
 
+env > $OPENSHIFT_RUBY_DIR/"`date +%s`"_control
+
 
 function start() {
     echo "Starting Ruby cartridge using ${OPENSHIFT_RUBY_SERVER} webserver."
+
 
     if [ "${OPENSHIFT_RUBY_RUNNING_PLATFORM}" = "jruby" ]
     then
@@ -154,6 +157,9 @@ function build() {
                 unset GIT_DIR
                 ruby_context "bundle install"
                 export GIT_DIR=$SAVED_GIT_DIR
+
+                env > $OPENSHIFT_RUBY_DIR/"`date +%s`"_build_end
+
               popd 1> /dev/null
           fi
         popd 1>/dev/null
@@ -170,6 +176,9 @@ function deploy() {
       ruby_context "bundle exec rake assets:precompile RAILS_ENV=production"
     fi
   fi
+
+  env > $OPENSHIFT_RUBY_DIR/"`date +%s`"_deploy_end
+
   popd > /dev/null
 }
 
