@@ -155,7 +155,7 @@ function build() {
 
                 SAVED_GIT_DIR=$GIT_DIR
                 unset GIT_DIR
-                ruby_context "bundle install"
+                ruby_context "bundle install --deployment"
                 export GIT_DIR=$SAVED_GIT_DIR
 
                 env > $OPENSHIFT_RUBY_DIR/"`date +%s`"_build_end
