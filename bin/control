@@ -151,8 +151,6 @@ function build() {
           then
               echo "Bundling RubyGems with 'bundle install'"
               pushd ${OPENSHIFT_REPO_DIR} 1> /dev/null
-                ruby_context 'gem update bundler' &> /dev/null
-
                 SAVED_GIT_DIR=$GIT_DIR
                 unset GIT_DIR
                 ruby_context "bundle install --deployment"
@@ -173,7 +171,7 @@ function deploy() {
     if [ -f Rakefile ] && ruby_context 'bundle exec rake -T' | grep "assets:precompile" >/dev/null
     then
       echo "Precompiling with 'bundle exec rake assets:precompile'"
-      ruby_context "bundle exec rake assets:precompile RAILS_ENV=production"
+      #ruby_context "bundle exec rake assets:precompile RAILS_ENV=production"
     fi
   fi
 
