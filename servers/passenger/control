@@ -9,9 +9,6 @@ source "${OPENSHIFT_RUBY_DIR}/servers/passenger/env_variables"
 no-jruby
 
 function start() {
-
-  env > $OPENSHIFT_RUBY_DIR/"`date +%s`"_passenger
-
   update_httpd_passenv $HTTPD_CFG_FILE
   ensure_valid_httpd_process "$OPENSHIFT_RUBY_SERVER_PID" "$HTTPD_CFG_FILE"
   ruby_context "/usr/sbin/httpd -C 'Include $OPENSHIFT_RUBY_DIR/etc/conf.d/*.conf' -f $HTTPD_CFG_FILE -k start"
