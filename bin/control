@@ -5,6 +5,8 @@ source "${OPENSHIFT_RUBY_DIR}/lib/util"
 source "${OPENSHIFT_RUBY_DIR}/lib/ruby_context"
 source "${OPENSHIFT_RUBY_DIR}/lib/servers"
 
+
+
 if [ -z "$OPENSHIFT_RUBY_SERVER" ]
 then
   OPENSHIFT_RUBY_SERVER="passenger" #by default
@@ -24,9 +26,14 @@ then
   set_active_platform "default"
 fi
 
+if [ "${OPENSHIFT_RUBY_PLATFORM}"  != "jruby" -a "${OPENSHIFT_RUBY_PLATFORM}" != "default" ]; then
+  echo "OPENSHIFT_RUBY_PLATFORM supports only values: default or jruby"
+  exit 1
+fi
 
 function start() {
     echo "Starting Ruby cartridge using ${OPENSHIFT_RUBY_SERVER} webserver."
+
 
     if [ "${OPENSHIFT_RUBY_RUNNING_PLATFORM}" = "jruby" ]
     then
@@ -148,11 +155,9 @@ function build() {
           then
               echo "Bundling RubyGems with 'bundle install'"
               pushd ${OPENSHIFT_REPO_DIR} 1> /dev/null
-                ruby_context 'gem update bundler' &> /dev/null
-
                 SAVED_GIT_DIR=$GIT_DIR
                 unset GIT_DIR
-                ruby_context "bundle install"
+                ruby_context "bundle install --deployment"
                 export GIT_DIR=$SAVED_GIT_DIR
               popd 1> /dev/null
           fi
@@ -164,12 +169,13 @@ function deploy() {
   pushd ${OPENSHIFT_REPO_DIR} > /dev/null
   if [ -f Gemfile ]
   then
-    if [ -f Rakefile ] && ruby_context 'bundle exec rake -T' | grep "assets:precompile" >/dev/null
+    if [ -f Rakefile ] && run_command "rake -T" | grep "assets:precompile" >/dev/null
     then
-      echo "Precompiling with 'bundle exec rake assets:precompile'"
+      echo "Precompiling assets with 'bundle exec rake assets:precompile'"
       ruby_context "bundle exec rake assets:precompile RAILS_ENV=production"
     fi
   fi
+
   popd > /dev/null
 }
 

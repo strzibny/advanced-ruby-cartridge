@@ -2,7 +2,7 @@
 Name: advanced-ruby
 Cartridge-Short-Name: RUBY
 Display-Name: Advanced Ruby cartridge
-Description: Advanced Ruby cartridge with additional support for many popular webservers and JRuby implementation, which can be switched anytime.
+Description: Advanced Ruby cartridge with additional support for many popular webservers and JRuby implementation.
 Version: '1.9'
 Versions:
 - '1.9'

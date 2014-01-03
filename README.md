@@ -1,7 +1,7 @@
 # OpenShift Advanced Ruby Cartridge
-Ruby cartridge, which is used in Openshift, supports by default only passenger server running on Apache. But this Advanced Ruby cartridge allows you to use other popular servers, to be specific **puma**, **unicorn**, **thin**, **rainbows** and **passenger**. And you are allowed to switch Ruby platform to **JRuby**!
+Ruby cartridge, which is used in Openshift, supports by default only Passenger server running on Apache. But this Advanced Ruby cartridge allows you to use other popular servers, to be specific **puma**, **unicorn**, **thin**, **rainbows** and **passenger**. And you are allowed to switch Ruby platform to **JRuby**.
 
-This for example means you can take advantage of websockets or better performance for your specific application. Not speaking about advantages of JRuby! Especially for production servers and enterprise applications.
+This for example means you can take advantage of websockets or better performance for your specific application. Not speaking about advantages of JRuby, especially for production servers and enterprise applications.
 
 
 How it Works
@@ -10,7 +10,7 @@ Make sure you have newer version of rhc installed, if not update your rhc
 
 	gem update rhc
 
-It's standalone cartridge, so install it like this
+It's standalone cartridge, so you can install it like this
 
 	rhc app create YOUR_APP_NAME http://cartreflect-claytondev.rhcloud.com/reflect?github=pbrazdil/openshift-advanced-ruby-cartridge
 
@@ -18,16 +18,17 @@ It's standalone cartridge, so install it like this
 Managing used webserver
 ===================
 
-By default passenger webserver is used. In order to change it we will use new feature of <code>rhc</code> which allows us to change environment variables. Set name of the server to <code>OPENSHIFT_RUBY_SERVER</code> variable.
+By default Passenger webserver is used. In order to change it, we will use new feature of <code>rhc</code> which allows us to change environment variables. Name of chosen webserver has to be inserted in <code>OPENSHIFT_RUBY_SERVER</code> variable.
 
-If you are missing some webserver, you can take advantage of support for adding custom webserver, more info below.
+If you are missing some webserver, you can take advantage of support for adding custom webserver, more information in next section.
 
 	# supported are (for ruby MRI (by default)): puma, unicorn, thin, passenger
 	# supported for jruby are: puma
 
+    # example of selecting webserver puma
 	rhc env set OPENSHIFT_RUBY_SERVER=puma -a YOUR_APP_NAME
 
-To take effect you need to either restart your application or deploy your code again. 
+To take effect, application must be restated or you must deploy your code again.
 
 	rhc app restart YOUR_APP_NAME
 	
@@ -36,7 +37,7 @@ You can check which server is running by using this command
 	rhc ssh YOUR_APP_NAME '~/advanced-ruby/bin/control server'
 
 
-If you are using Gemfile you need to add gem with your selected server. In this case it would be
+If you are using Gemfile you need to add gem with your selected webserver. In this case it would be
 
 ```ruby
 group :production do
@@ -46,7 +47,7 @@ end
 
 Using custom webserver
 -----------------------
-If you want to use server, which is not included in this cartridge, you can create custom server control script which defines operation like start, stop and restart of used server. This script must be located in your repository in <code>.openshift/action_hooks/server_control</code> and must be executable. Script will be invoked with context of repository.
+For using webserver, which is not included in this cartridge, you can create custom server control script which defines operations like start, stop and restart of used webserver. This script must be located in application repository in <code>.openshift/action_hooks/server_control</code> and must be executable. Script will be invoked with context of repository.
 
 For creating your own custom control script use this template.
 
@@ -72,13 +73,13 @@ For creating your own custom control script use this template.
       *)        exit 0 ;;
     esac
 
-And set <code>OPENSHIFT_RUBY_SERVER</code> variable to <code>custom</code> running this command <code>rhc env set OPENSHIFT_RUBY_SERVER=custom -a YOUR_APP_NAME</code>.
+Variable <code>OPENSHIFT_RUBY_SERVER</code> must be set to <code>custom</code> by running this command <code>rhc env set OPENSHIFT_RUBY_SERVER=custom -a YOUR_APP_NAME</code>.
 
 For inspiration, you can take a look to <code>servers</code> directory, to be specific into <code>control</code> file of some webserver.
 
-It's highly advised to run any ruby command with <code>ruby_context</code> function, so for example <code>ruby_context "puma --help"</code>, use it even for installing gems or you will experienced a lot of problems if you are using JRuby.
+It's highly advised to run any ruby command with <code>ruby_context</code> function  (for example <code>ruby_context "puma --help"</code>), use it even for installing gems or you will experienced a lot of problems, especially if you are using JRuby.
 
-If you have problem with debugging I recommend you to ssh into your app (<code>rhc ssh APP_NAME</code>) and test it there to see all error messages.
+If you have problem with debugging I recommend you to ssh into your app (<code>rhc ssh APP_NAME</code>) and test scripts manually by invoking them to see all error messages.
 
 Changing Ruby platform to JRuby
 ==================================
@@ -102,7 +103,7 @@ Check which Ruby platform is currently running by using
 Example Rails application
 =========================
 
-If you have any problems with running application using this cartridge, take a look at my example Rails application which supports JRuby and also default Ruby environment. (link will be here soon :) )
+If you have any problems with running application using this cartridge, take a look at my example Rails application which supports JRuby and also default Ruby environment, https://github.com/pbrazdil/test-app.
 
 
 If you want to contact me, send me an email on pbrazdil@redhat.com

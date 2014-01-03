@@ -1,12 +1,7 @@
-# Do not include this into the util file...
-# RHEL, Fedora18 and Fedora19 will overwrite this file to support invoking their Ruby versions
-
-# RHEL OpenShift Online supported versions
+# working for RHEL, if using Fedora you should override this file
 function ruby_context {
   if [ "$OPENSHIFT_RUBY_RUNNING_PLATFORM" = "jruby" ]
   then
-    #GEM_HOME=${OPENSHIFT_HOMEDIR}/.gem-jruby/ GEM_PATH=${OPENSHIFT_HOMEDIR}/.gem-jruby/ jruby -S $1
-
     jruby -S $1
   else
     case $OPENSHIFT_RUBY_VERSION in
@@ -14,5 +9,4 @@ function ruby_context {
       1.9) /usr/bin/scl enable ruby193 "$1" ;;
     esac
   fi
-
 }
