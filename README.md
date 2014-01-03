@@ -12,7 +12,7 @@ Make sure you have newer version of rhc installed, if not update your rhc
 
 It's standalone cartridge, so you can install it like this
 
-	rhc app create YOUR_APP_NAME http://cartreflect-claytondev.rhcloud.com/reflect?github=pbrazdil/openshift-advanced-ruby-cartridge
+	rhc app create YOUR_APP_NAME https://gist.github.com/pbrazdil/8231817/raw/85780b211147ad8540cd8f12c72fe25375131170/master_manifest
 
 
 Managing used webserver
