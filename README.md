@@ -1,5 +1,5 @@
 # OpenShift Advanced Ruby Cartridge
-Ruby cartridge, which is used in Openshift, supports by default only Passenger server running on Apache. But this Advanced Ruby cartridge allows you to use other popular servers, to be specific **puma**, **unicorn**, **thin**, **rainbows** and **passenger**. And you are allowed to switch Ruby platform to **JRuby**.
+The ruby cartridge, which is used in Openshift, supports by default only Passenger server running on Apache. But this Advanced Ruby cartridge allows you to use other popular servers, to be specific **puma**, **unicorn**, **thin**, **rainbows** and **passenger**. And you are allowed to switch Ruby platform to **JRuby**.
 
 This for example means you can take advantage of websockets or better performance for your specific application. Not speaking about advantages of JRuby, especially for production servers and enterprise applications.
 
@@ -18,7 +18,7 @@ It's standalone cartridge, so you can install it like this
 Managing used webserver
 ===================
 
-By default Passenger webserver is used. In order to change it, we will use new feature of <code>rhc</code> which allows us to change environment variables. Name of chosen webserver has to be inserted in <code>OPENSHIFT_RUBY_SERVER</code> variable.
+By default, the Passenger webserver is used. In order to change it, we will use a feature of <code>rhc</code> which allows us to change environment variables. The name of your chosen webserver has to be inserted in <code>OPENSHIFT_RUBY_SERVER</code> variable.
 
 If you are missing some webserver, you can take advantage of support for adding custom webserver, more information in next section.
 
@@ -28,7 +28,7 @@ If you are missing some webserver, you can take advantage of support for adding 
     # example of selecting webserver puma
 	rhc env set OPENSHIFT_RUBY_SERVER=puma -a YOUR_APP_NAME
 
-To take effect, application must be restated or you must deploy your code again.
+To take effect, the application must be restated or you must deploy your code again.
 
 	rhc app restart YOUR_APP_NAME
 	
@@ -47,7 +47,7 @@ end
 
 Using custom webserver
 -----------------------
-For using webserver, which is not included in this cartridge, you can create custom server control script which defines operations like start, stop and restart of used webserver. This script must be located in application repository in <code>.openshift/action_hooks/server_control</code> and must be executable. Script will be invoked with context of repository.
+If using a webserver which is not included in this cartridge, you can create custom server control script which defines operations like start, stop and restart of used webserver. This script must be located in application repository in <code>.openshift/action_hooks/server_control</code> and must be executable. Script will be invoked within context of your repository.
 
 For creating your own custom control script use this template.
 
@@ -73,7 +73,7 @@ For creating your own custom control script use this template.
       *)        exit 0 ;;
     esac
 
-Variable <code>OPENSHIFT_RUBY_SERVER</code> must be set to <code>custom</code> by running this command <code>rhc env set OPENSHIFT_RUBY_SERVER=custom -a YOUR_APP_NAME</code>.
+The variable <code>OPENSHIFT_RUBY_SERVER</code> must be set to <code>custom</code> by running this command <code>rhc env set OPENSHIFT_RUBY_SERVER=custom -a YOUR_APP_NAME</code>.
 
 For inspiration, you can take a look to <code>servers</code> directory, to be specific into <code>control</code> file of some webserver.
 
@@ -84,7 +84,7 @@ If you have problem with debugging I recommend you to ssh into your app (<code>r
 Changing Ruby platform to JRuby
 ==================================
 
-By default classic ruby implementation is used, but this cartridge also supports JRuby which can be switched as easy as changing webserver. You can switch to JRuby and vice versa in anytime, not just before first deploy.
+By default the classic ruby implementation is used, but this cartridge also supports JRuby which can be switched as easy as changing webserver. You can switch to JRuby and vice versa in anytime, not just before first deploy.
 
 
     # for default ruby implementation
@@ -93,7 +93,7 @@ By default classic ruby implementation is used, but this cartridge also supports
     # for jruby
     rhc env set OPENSHIFT_RUBY_PLATFORM=jruby -a YOUR_APP_NAME
 
-Ruby platform is automatically changed only after new deploy of your code.
+The ruby platform is automatically changed only after new deploy of your code.
 
 Check which Ruby platform is currently running by using
 
@@ -103,7 +103,7 @@ Check which Ruby platform is currently running by using
 Example Rails application
 =========================
 
-If you have any problems with running application using this cartridge, take a look at my example Rails application which supports JRuby and also default Ruby environment, https://github.com/pbrazdil/test-app.
+If you have any problems with running your application using this cartridge, take a look at my example Rails application which supports JRuby and also default Ruby environment, https://github.com/pbrazdil/test-app.
 
 
 If you want to contact me, send me an email on pbrazdil@redhat.com
